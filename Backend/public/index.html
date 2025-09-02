@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Cricket</title>
+</head>
+<body>
+    <div id="timer"></div>
+    <div id="role"></div>
+    <div id="buttonsDiv"></div>
+    <div id="score"></div>
+    <div id="new-game"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const choices = [0,1,2,3,4,5,6,10];
+        const buttons = document.getElementById("buttonsDiv");
+        let scoreDisplay = document.getElementById("score");
+        const timer = document.getElementById("timer");
+        const again = document.getElementById("new-game");
+
+        let role = null;
+        let selected = null;
+        let room = null;
+        let countDown = null;
+        let countDownValue = 10;
+        let hasMoved = false;
+
+        const socket = io();
+
+        for(let i = 0; i < choices.length; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = choices[i];
+            btn.value = choices[i];
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (hasMoved) return;
+                selected = choices[i];
+                move(false);
+            });
+            buttons.appendChild(btn);
+            buttons.appendChild(document.createTextNode(" "));
+        }
+
+        const startTimer = () => {
+            hasMoved = false;
+            countDownValue = 10;
+            timer.innerHTML = `Time left = ${countDownValue}`;
+            countDown = setInterval(() => {
+                countDownValue--;
+                timer.innerHTML = `Time left = ${countDownValue}`;
+                if (countDownValue <= 0) {
+                    clearInterval(countDown);
+                    timer.innerHTML = `Time up - choosing a random value`;
+                    move(true);
+                }
+            }, 1000);
+        };
+
+        const move = (auto = false) => {
+            clearInterval(countDown);
+            timer.innerHTML = "";
+            hasMoved = true;
+            const number = (!auto) ? selected : choices[Math.floor(Math.random() * choices.length)];
+            socket.emit('PlayerMove', `${number}`);
+        };
+
+        socket.on("startgame", (roomId) => {
+            console.log(`Game started. Room ID: ${roomId}`);
+            room = roomId;
+            again.innerHTML = "";
+            startTimer();
+        });
+
+        socket.on("role", (givenRole) => {
+            role = givenRole;
+            document.getElementById("role").innerHTML = `You are <strong>${role}</strong>`;
+        });
+
+        socket.on("ballResult", (cScore) => {
+            const result = JSON.parse(cScore);
+            again.innerHTML = ""; // Clear any old buttons if present
+
+            if (result.win !== null) {
+                scoreDisplay.innerHTML = (socket.id === result.win) ? `<h3>You win 🎉</h3>` : `<h3>You lost 😢</h3>`;
+                clearInterval(countDown);
+
+                const playAgain = document.createElement("button");
+                playAgain.textContent = "Play Again";
+                playAgain.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    socket.emit("playAgain",room);
+                    again.innerHTML = "";
+                });
+
+                const newGame = document.createElement("button");
+                newGame.textContent = "New Game";
+                newGame.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    socket.emit("playAgainNew");
+                    again.innerHTML = ""; 
+                });
+
+                again.appendChild(playAgain);
+                again.appendChild(document.createTextNode(" "));
+                again.appendChild(newGame);
+            } else {
+                const scoreText = (role === "batting")
+                    ? `Your score: ${result.currentScore}` + (result.Target !== null ? ` | Target: ${result.Target}` : '')
+                    : `Opponent score: ${result.currentScore}` + (result.Target !== null ? ` | Target: ${result.Target}` : '');
+                scoreDisplay.innerHTML = `<h3>${scoreText}</h3>`;
+                startTimer();
+            }
+        });
+        socket.on("opponentLeft",()=>{
+            const newGame = document.createElement("button");
+                newGame.textContent = "New Game";
+                newGame.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    socket.emit("playAgainNew");
+                    again.innerHTML = ""; 
+                });
+            again.append(document.createTextNode("opponent left click for "))
+            again.appendChild(newGame);
+        })
+
+    </script>
+</body>
+</html>

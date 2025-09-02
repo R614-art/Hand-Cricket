@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Schoolbell&display=swap');
+
+.instruction-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem; /* prevent edges cutting on small screens */
+  min-height: 100vh;
+}
+
+.board {
+  width: 100%;
+  max-width: 900px;
+  background: center center no-repeat;
+  background-size: 100% 100%;
+  padding: 2rem;
+  border-radius: 12px; /* smoother corners */
+  box-sizing: border-box;
+  background-clip: padding-box;
+}
+
+.board-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: clamp(1rem, 4vw, 3rem); /* auto adjust padding */
+}
+
+.board-title {
+  font-family: 'Schoolbell', cursive;
+  color: white;
+  font-size: clamp(1.3rem, 3.5vw, 2.4rem); /* fluid scaling */
+  margin-bottom: 1.2rem;
+  text-align: center;
+  width: 100%;
+  text-shadow: 2px 2px 5px rgba(255,255,255,0.2);
+}
+
+.chalk-subtitle {
+  font-family: 'Schoolbell', cursive;
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  color: #fffa9e; 
+  margin: 1.2rem 0 0.6rem 0.5rem;
+}
+
+.chalk-list {
+  list-style-position: outside;
+  margin: 0 0 1rem 1.5rem;
+  padding-left: 1rem;
+  width: 100%;
+}
+
+.chalk-list li {
+  font-family: 'Schoolbell', cursive;
+  font-size: clamp(0.95rem, 2.5vw, 1.4rem);
+  color: white;
+  margin: 0.4rem 0;
+  text-shadow: 1px 1px 4px rgba(255,255,255,0.3);
+  line-height: 1.7;
+}
+
+/* ✅ Responsive tweaks */
+@media (max-width: 600px) {
+  .board {
+    padding: 0.6rem;
+    border-radius: 8px;
+  }
+
+  .board-body {
+    padding: 1.5rem 1rem; /* keep safe margins */
+  }
+
+  .board-title {
+    font-size: 1.3rem;
+    margin-top: 35px; /* smaller heading */
+    margin-bottom: 0px;
+  }
+
+  .chalk-list li {
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 1200px) {
+  .board {
+    max-width: 1000px;
+    padding: 3rem;
+  }
+
+  .board-title {
+    font-size: 2.8rem;
+  }
+
+  .chalk-subtitle {
+    font-size: 2rem;
+  }
+
+  .chalk-list li {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,161 @@
+import React, { useEffect, useRef, useState } from 'react'
+import {io} from 'socket.io-client'
+import Spinner from './Spinner'
+import Scorecard from './Scorecard';
+import ReactDOM from 'react-dom';
+const Multi = () => {
+  const choices=[0,1,2,3,4,5,6]
+  const socket= useRef(null);
+  const [searching,setSearching] = useState(true);
+  const [time,setTime] = useState(null);
+  const [playerMove,setPlayerMove]=useState(null);
+  const [oppMove,setOppMove]=useState(null);
+  const [cMove,setCMove]=useState(null);
+  const [role,setRole]=useState(null);
+  const [score,setScore]=useState(null);
+  const [playerLeft,setPlayerLeft]=useState(false);
+  const [round,setRound]=useState(0);
+  const [playerLeftAfter,setPlayerLeftAfter]=useState(false);
+  const timer= useRef(null);
+  useEffect(()=>{
+    const s = io('http://192.168.29.63:15000');
+    socket.current = s;
+
+    s.on('connect',()=>{
+      console.log('connected')
+      setSearching(true);
+    })
+
+    s.on('startgame', () => {
+        console.log('started');
+        setPlayerLeft(false);
+        setSearching(false);
+        setTime(10);
+        startTimer();
+      })
+    s.on('role',(role)=>{
+        setRole(role);
+      })
+    
+    s.on('ballResult',(score)=>{
+      const newScore=JSON.parse(score)
+      const opp=newScore.bowlerMove;
+      const m=newScore.batterMove;
+      setCMove(m);
+      setOppMove(opp);
+      setRound((prev)=>{
+        return prev+1;
+      })
+      setTimeout(()=>{
+        setPlayerMove(null);
+        setTime(10);
+        startTimer();
+        setScore(newScore);
+      },3000)
+    })
+
+    s.on('opponentLeft',()=>{
+      setScore( prev=>{
+        if(!prev)
+          return {
+        currentScore: 0,
+        Target: null,
+        win: socket.current.id,
+        bowlerMove: null,
+        batterMove: null
+      };
+        else if(prev.win===null)
+        return {
+        ...prev,
+        win:socket.current.id
+        }
+        return prev
+      });
+      setPlayerLeft(true);
+    })
+    s.on('opponentLeftAfter',()=>{
+      setPlayerLeft(true);
+    })
+
+    return ()=>{
+      if(timer.current) clearInterval(timer.current);
+      if(socket.current)
+      {
+        socket.current.disconnect();
+        socket.current=null;
+      }
+    }
+  },[])
+      
+    const startTimer= ()=>{
+      if (timer.current) clearInterval(timer.current);
+      let count=10;
+      timer.current=setInterval(()=>{
+        if(!playerMove)
+        {
+          count--;
+          setTime(count);
+          if(count<=0)
+          {
+            clearInterval(timer.current)
+            let move=choices[Math.floor(Math.random()*7)]+"";
+            setPlayerMove(move);
+            //console.log(move)
+            socket.current.emit('PlayerMove',move);
+          }
+        }
+      },1000)
+    }
+    const handleChoice = (e) =>{ 
+      let move=e.target.value
+      setPlayerMove(move);
+      clearInterval(timer.current)
+      socket.current.emit('PlayerMove',move);
+    }
+    const handlePlayAgain = ()=> {
+      socket.current.emit('playAgain');
+      setScore(null);
+      setSearching(true);
+    }
+    const handleNewGame = () =>{
+      socket.current.emit('playAgainNew');
+      setScore(null);
+      setSearching(true);
+    }
+  return (
+    <div>
+      {searching===true?
+        <Spinner />
+      :
+      <div>
+        {score===null?
+        <Scorecard score={0} target={null} role={role} handleChoice={handleChoice} time={time}/>:
+          score.win===null ? <Scorecard score={score.currentScore} target={score.Target} role={role} time={time} p1={role==="batting"?cMove:oppMove} round={round} p2={role==="batting"?oppMove:cMove} handleChoice={handleChoice}/>:
+          ReactDOM.createPortal(
+            <div style={{
+              position: 'fixed',
+                top: 0, left: 0,
+                  width: '100vw', height: '100vh',
+                    background: 'rgba(0,0,0,0.7)',
+                    display: 'flex', justifyContent: 'center', alignItems: 'center',
+                    zIndex: 99999
+                  }}>
+            <div style={{
+                background: 'white', padding: '30px',
+                borderRadius: '10px', textAlign: 'center',color:'black'
+            }}>
+                <h2>{socket.current.id===score.win ? (playerLeft?"Opponent Left ":"")+"You Won" : "You Lost"}</h2>
+                {!playerLeft && <button onClick={handlePlayAgain}>Play Again</button>}
+                <button onClick={handleNewGame}>New Game</button>
+                </div>
+                </div>,
+                document.body
+          )
+        }
+      </div>
+      }
+    </div>
+  )
+}
+
+export default Multi
