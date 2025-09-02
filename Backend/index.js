@@ -8,7 +8,7 @@ app.use(cors());
 
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000","http://192.168.29.63:3000"], // React frontend
+    origin: ["hand-cricket-rho.vercel.app"], // React frontend
     methods: ["GET", "POST"]
   }
 });
