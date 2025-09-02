@@ -18,7 +18,7 @@ const Multi = () => {
   const [playerLeftAfter,setPlayerLeftAfter]=useState(false);
   const timer= useRef(null);
   useEffect(()=>{
-    const s = io('http://192.168.29.63:15000');
+    const s = io('https://hand-cricket-xm73.onrender.com');
     socket.current = s;
 
     s.on('connect',()=>{
