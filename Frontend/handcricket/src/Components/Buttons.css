@@ -1,11 +1,9 @@
 .buttons-wrapper {
-  width: 70%;
   display: flex;
-  justify-content: space-evenly; /* evenly distributes buttons */
-  padding: 20px 0 40px;
-  position: absolute;
-  bottom: 40px;
-  left: 15%
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
 }
 
 .buttons-wrapper button {
@@ -25,15 +23,16 @@
   background: #ffa500;
   transform: scale(1.1);
 }
+
+/* Mobile adjustments */
 @media (max-width: 500px) {
   .buttons-wrapper {
-    width: 90%;
-    left: 5%;
-    gap: 10px; /* spacing between buttons */
+    gap: 6px;
   }
 
   .buttons-wrapper button {
-    flex: 1 1 30%; /* make them auto size */
-    max-width: 70px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
   }
 }
