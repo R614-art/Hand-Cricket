@@ -1,7 +1,7 @@
 import React from 'react'
-import Buttons from './Buttons'
+import Buttons from '../Buttons/Buttons'
 import './Scorecard.css'
-import Move from './Move'
+import Move from '../Move/Move'
 const Scorecard = ({score,target,role,time,p1,p2,round,disabled,handleChoice}) => {
   return (
     <div className="game-container">

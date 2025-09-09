@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {io} from 'socket.io-client'
-import Spinner from './Spinner'
-import Scorecard from './Scorecard';
+import Spinner from '../Spinner'
+import Scorecard from '../Scorecard';
 import ReactDOM from 'react-dom';
 const Multi = () => {
   const choices=[0,1,2,3,4,5,6]

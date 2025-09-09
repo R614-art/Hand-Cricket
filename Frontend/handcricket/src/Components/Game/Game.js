@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './Game.css'
-import Scorecard from './Scorecard';
+import Scorecard from '../Scorecard/Scorecard';
 
 const Game = () => {
   const choices = [0, 1, 2, 3, 4, 5, 6];
