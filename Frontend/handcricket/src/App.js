@@ -1,9 +1,9 @@
 import './App.css';
-import Card from './Components/Card';
+import Card from './Components/Card/Card';
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
-import Game from './Components/Game';
-import Instructions from './Components/Instructions';
-import Multi from './Components/Multi';
+import Game from './Components/Game/Game';
+import Instructions from './Components/Instructions/Instructions';
+import Multi from './Components/Multi/Multi';
 
 function App() {
   return (
