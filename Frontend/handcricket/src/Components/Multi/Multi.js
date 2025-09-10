@@ -99,6 +99,7 @@ const Multi = () => {
           setTime(count);
           if(count<=0)
           {
+            setDisabled(true);
             clearInterval(timer.current)
             let move=choices[Math.floor(Math.random()*7)]+"";
             setPlayerMove(move);
