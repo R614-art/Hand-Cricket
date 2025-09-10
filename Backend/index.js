@@ -70,6 +70,7 @@ io.on("connection", (socket) => {
         if (score.bowlerMove !== null && score.batterMove !== null) {
             if (score.bowlerMove !== score.batterMove) {
                 score.currentScore += score.batterMove;
+                score.out='';
                 if (score.Target !== null && score.currentScore >= score.Target) {
                     score.win = score.batter;
                 }
@@ -78,7 +79,7 @@ io.on("connection", (socket) => {
                 if (!score.Target) {
                     score.Target = score.currentScore+1;
                     score.currentScore = 0;
-                    score.out=score.batter
+                    score.out=score.batter;
                     [score.batter, score.bowler] = [score.bowler, score.batter];
                     io.to(score.batter).emit("role", "batting");
                     io.to(score.bowler).emit("role", "bowling");

@@ -43,7 +43,7 @@ const Multi = () => {
       const opp=newScore.bowlerMove;
       const m=newScore.batterMove;
       const status=newScore.out;
-      const o=(status===socket.current.id)?'you':'opp';
+      const o=status!==''?((status===socket.current.id)?'you':'opp'):'';
       setCMove(m);
       setOppMove(opp);
       setRound((prev)=>{
