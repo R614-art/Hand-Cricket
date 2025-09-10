@@ -38,6 +38,12 @@ const Multi = () => {
         setRole(role);
       })
     
+    s.on('roleSwap',(role)=>{
+      setTimeout(()=>{
+        setRole(role);
+      },5000);
+    })
+    
     s.on('ballResult',(score)=>{
       const newScore=JSON.parse(score)
       const opp=newScore.bowlerMove;

@@ -81,8 +81,8 @@ io.on("connection", (socket) => {
                     score.currentScore = 0;
                     score.out=score.batter;
                     [score.batter, score.bowler] = [score.bowler, score.batter];
-                    io.to(score.batter).emit("role", "batting");
-                    io.to(score.bowler).emit("role", "bowling");
+                    io.to(score.batter).emit("roleSwap", "batting");
+                    io.to(score.bowler).emit("roleSwap", "bowling");
                 } else {
                     if (score.currentScore < score.Target) {
                         score.win = score.bowler;
