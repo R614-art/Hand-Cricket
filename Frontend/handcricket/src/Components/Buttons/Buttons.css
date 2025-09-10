@@ -24,6 +24,14 @@
   transform: scale(1.1);
 }
 
+.buttons-wrapper button:disabled {
+  background: #bbb;        /* dull grey */
+  color: darkgoldenrod;             /* faded text */
+  cursor: not-allowed;     /* show disabled cursor */
+  transform: none;         /* remove hover grow effect */
+  opacity: 0.6;            /* make it look less active */
+}
+
 /* Mobile adjustments */
 @media (max-width: 500px) {
   .buttons-wrapper {
