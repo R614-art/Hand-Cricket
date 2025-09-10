@@ -15,6 +15,7 @@ const Multi = () => {
   const [score,setScore]=useState(null);
   const [playerLeft,setPlayerLeft]=useState(false);
   const [round,setRound]=useState(0);
+  const [disabled,setDisabled]=useState(false);
   const [playerLeftAfter,setPlayerLeftAfter]=useState(false);
   const timer= useRef(null);
   useEffect(()=>{
@@ -47,6 +48,7 @@ const Multi = () => {
         return prev+1;
       })
       setTimeout(()=>{
+        setDisabled(false);
         setPlayerMove(null);
         setTime(10);
         startTimer();
@@ -110,6 +112,7 @@ const Multi = () => {
       let move=e.target.value
       setPlayerMove(move);
       clearInterval(timer.current)
+      setDisabled(true);
       socket.current.emit('PlayerMove',move);
     }
     const handlePlayAgain = ()=> {
@@ -130,7 +133,7 @@ const Multi = () => {
       <div>
         {score===null?
         <Scorecard score={0} target={null} role={role} handleChoice={handleChoice} time={time}/>:
-          score.win===null ? <Scorecard score={score.currentScore} target={score.Target} role={role} time={time} p1={role==="batting"?cMove:oppMove} round={round} p2={role==="batting"?oppMove:cMove} handleChoice={handleChoice}/>:
+          score.win===null ? <Scorecard score={score.currentScore} target={score.Target} role={role} time={time} p1={role==="batting"?cMove:oppMove} disabled={disabled} round={round} p2={role==="batting"?oppMove:cMove} handleChoice={handleChoice}/>:
           ReactDOM.createPortal(
             <div style={{
               position: 'fixed',
