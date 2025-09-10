@@ -133,7 +133,7 @@ const Multi = () => {
       :
       <div>
         {score===null?
-        <Scorecard score={0} target={null} role={role} handleChoice={handleChoice} time={time}/>:
+        <Scorecard score={0} target={null} role={role} handleChoice={handleChoice} time={time} disabled={disabled}/>:
           score.win===null ? <Scorecard score={score.currentScore} target={score.Target} role={role} time={time} p1={role==="batting"?cMove:oppMove} disabled={disabled} round={round} p2={role==="batting"?oppMove:cMove} handleChoice={handleChoice}/>:
           ReactDOM.createPortal(
             <div style={{
