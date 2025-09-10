@@ -42,6 +42,7 @@ io.on("connection", (socket) => {
             win: null,
             batterMove: null,
             bowlerMove: null,
+            out: '',
             ready: new Set()
         };
 
@@ -77,6 +78,7 @@ io.on("connection", (socket) => {
                 if (!score.Target) {
                     score.Target = score.currentScore+1;
                     score.currentScore = 0;
+                    score.out=score.batter
                     [score.batter, score.bowler] = [score.bowler, score.batter];
                     io.to(score.batter).emit("role", "batting");
                     io.to(score.bowler).emit("role", "bowling");
@@ -122,6 +124,7 @@ io.on("connection", (socket) => {
                 win: null,
                 batterMove: null,
                 bowlerMove: null,
+                out: '',
                 ready: new Set()
             };
 
@@ -168,6 +171,7 @@ io.on("connection", (socket) => {
                 win: null,
                 batterMove: null,
                 bowlerMove: null,
+                out: null,
                 ready: new Set()
             };
 

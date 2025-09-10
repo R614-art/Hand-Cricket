@@ -16,7 +16,7 @@ const Multi = () => {
   const [playerLeft,setPlayerLeft]=useState(false);
   const [round,setRound]=useState(0);
   const [disabled,setDisabled]=useState(false);
-  const [playerLeftAfter,setPlayerLeftAfter]=useState(false);
+  const [out,setOut]=useState('');
   const timer= useRef(null);
   useEffect(()=>{
     const s = io('https://hand-cricket-xm73.onrender.com');
@@ -42,6 +42,8 @@ const Multi = () => {
       const newScore=JSON.parse(score)
       const opp=newScore.bowlerMove;
       const m=newScore.batterMove;
+      const status=newScore.out;
+      const o=(status===socket.current.id)?'you':'opp';
       setCMove(m);
       setOppMove(opp);
       setRound((prev)=>{
@@ -53,6 +55,10 @@ const Multi = () => {
         setTime(10);
         startTimer();
         setScore(newScore);
+        setOut(o);
+        setTimeout(()=>{
+        setOut('');
+      },2000)
       },3000)
     })
 
@@ -133,8 +139,8 @@ const Multi = () => {
       :
       <div>
         {score===null?
-        <Scorecard score={0} target={null} role={role} handleChoice={handleChoice} time={time} disabled={disabled}/>:
-          score.win===null ? <Scorecard score={score.currentScore} target={score.Target} role={role} time={time} p1={role==="batting"?cMove:oppMove} disabled={disabled} round={round} p2={role==="batting"?oppMove:cMove} handleChoice={handleChoice}/>:
+        <Scorecard score={0} target={null} role={role} handleChoice={handleChoice} time={time} disabled={disabled} out={out}/>:
+          score.win===null ? <Scorecard score={score.currentScore} target={score.Target} role={role} time={time} out={out} p1={role==="batting"?cMove:oppMove} disabled={disabled} round={round} p2={role==="batting"?oppMove:cMove} handleChoice={handleChoice}/>:
           ReactDOM.createPortal(
             <div style={{
               position: 'fixed',

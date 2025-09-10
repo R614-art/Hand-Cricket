@@ -14,6 +14,7 @@ body {
   align-content: center;
   justify-items: center;
   padding: 20px;
+  position: relative;
 }
 
 .top-bar {
@@ -111,5 +112,65 @@ body {
 
   .player-label {
     font-size: 1.1rem;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7); /* darker backdrop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* above everything */
+}
+
+/* OUT card */
+.out-card {
+  background: #a52a2a; /* match player-box color */
+  border: 3px solid #ffd700; /* gold border */
+  border-radius: 16px;
+  padding: 20px 30px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  animation: pop-in 0.3s ease-in-out;
+  max-width: 90%;
+}
+
+/* Headline */
+.out-card h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #ffd700; /* gold text */
+}
+
+/* Target text */
+.out-card p {
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 0;
+}
+
+/* Animation */
+@keyframes pop-in {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Make overlay responsive */
+@media (max-width: 480px) {
+  .out-card {
+    padding: 15px 20px;
+  }
+
+  .out-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .out-card p {
+    font-size: 1rem;
   }
 }

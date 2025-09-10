@@ -11,7 +11,8 @@ const Game = () => {
   const [result, setResult] = useState('');
   const [player,setPlayer]=useState(0);
   const [computer,setComputer]=useState(0);
-  const [disabled,setDisabled]=useState(false)
+  const [disabled,setDisabled]=useState(false);
+  const [out,setOut]=useState('')
   const [round,setRound]=useState(0);
 
   const handleChoice = (e) => {
@@ -30,8 +31,12 @@ const Game = () => {
         setScore(prev => prev + playerMove);
       } else {
         setTarget(score+1);
-        setScore(0);
-        setRole('bowling');
+        setOut('you');
+        setTimeout(()=>{
+          setOut('');
+          setScore(0);
+          setRole('bowling');
+        },2000)
       }
     } else {
       if (playerMove !== computerMove) {
@@ -63,7 +68,7 @@ const Game = () => {
   return (
     <div>
       {result === '' && (
-        <Scorecard score={score} target={target} role={role} p1={player} p2={computer} time={null} round={round} disabled={disabled} handleChoice={handleChoice}/>
+        <Scorecard score={score} target={target} role={role} p1={player} p2={computer} time={null} round={round} disabled={disabled} out={out} handleChoice={handleChoice}/>
       )}
       
       {result !== '' &&

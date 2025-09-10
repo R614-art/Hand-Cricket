@@ -2,7 +2,7 @@ import React from 'react'
 import Buttons from '../Buttons/Buttons'
 import './Scorecard.css'
 import Move from '../Move/Move'
-const Scorecard = ({score,target,role,time,p1,p2,round,disabled,handleChoice}) => {
+const Scorecard = ({score,target,role,time,p1,p2,round,disabled,out,handleChoice}) => {
   return (
     <div className="game-container">
         <div className="top-bar">
@@ -24,6 +24,14 @@ const Scorecard = ({score,target,role,time,p1,p2,round,disabled,handleChoice}) =
         </div>
         </div>
         <Buttons handleChoice={handleChoice} disabled={disabled} />
+        {out !== '' && (
+        <div className="overlay">
+          <div className="out-card">
+            <h2>{out==='you'?"You are bowled!!!":"You bowled him!!!"}</h2>
+            {target !== null && <p>Target: {target}</p>}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
