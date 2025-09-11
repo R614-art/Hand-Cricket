@@ -104,6 +104,7 @@ const Multi = ({mode}) => {
         return prev
       });
       setPlayerLeft(true);
+      setDisabled(false);
     })
     s.on('opponentLeftAfter',()=>{
       setPlayerLeft(true);
