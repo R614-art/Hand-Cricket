@@ -3,9 +3,12 @@ import {io} from 'socket.io-client'
 import Spinner from '../Spinner/Spinner'
 import Scorecard from '../Scorecard/Scorecard';
 import ReactDOM from 'react-dom';
-const Multi = () => {
+import { useLocation } from 'react-router-dom';
+const Multi = ({mode}) => {
   const choices=[0,1,2,3,4,5,6]
   const socket= useRef(null);
+  const location= useLocation();
+  const roomId= location.state?.roomId;
   const [searching,setSearching] = useState(true);
   const [time,setTime] = useState(null);
   const [playerMove,setPlayerMove]=useState(null);
@@ -17,6 +20,8 @@ const Multi = () => {
   const [round,setRound]=useState(0);
   const [disabled,setDisabled]=useState(false);
   const [out,setOut]=useState('');
+  const [roomCode, setRoomCode] = useState(null);
+  const [waitingForPlayer, setWaitingForPlayer] = useState(false);
   const timer= useRef(null);
   useEffect(()=>{
     const s = io('https://hand-cricket-xm73.onrender.com');
@@ -24,13 +29,26 @@ const Multi = () => {
 
     s.on('connect',()=>{
       console.log('connected')
+      if (mode === 'quickplay') {
+      socket.current.emit('quickPlay');
       setSearching(true);
+      } else if (mode === 'createroom') {
+        socket.current.emit('createRoom');
+      } else if (mode === 'joinroom') {
+        socket.current.emit('joinRoom',roomId);
+      }
+    })
+
+    s.on('roomCreated',(roomId)=>{
+      setRoomCode(roomId);
+      setWaitingForPlayer(true);
     })
 
     s.on('startgame', () => {
         console.log('started');
         setPlayerLeft(false);
         setSearching(false);
+        setWaitingForPlayer(false);
         setTime(10);
         startTimer();
       })
@@ -140,8 +158,26 @@ const Multi = () => {
     }
   return (
     <div>
-      {searching===true?
-        <Spinner />
+      {searching || waitingForPlayer ? (
+        <div style={{textAlign: 'center', marginTop: '2rem'}}>
+          {waitingForPlayer ? (
+            <div>
+              <h2>Room Code:</h2>
+              <div style={{
+                fontSize: '2rem', fontWeight: 'bold', margin: '1rem 0',
+                padding: '1rem', border: '2px dashed #fff', borderRadius: '10px',
+                display: 'inline-block'
+              }}>
+                {roomCode}
+              </div>
+              <p>Share this code with your friend to join.</p>
+              <p>Waiting for opponent...</p>
+            </div>
+          ) : (
+            <Spinner />
+          )}
+        </div>
+      )
       :
       <div>
         {score===null?

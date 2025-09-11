@@ -12,7 +12,7 @@ const Card = () => {
           Play With Computer
         </Link>
 
-        <Link to="/playwithplayer" className="chalk-btn">
+        <Link to="/multioptions" className="chalk-btn">
           Multiplayer
         </Link>
 

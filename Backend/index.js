@@ -23,20 +23,47 @@ const games = new Map();
 const playerRoom = new Map();
 
 io.on("connection", (socket) => {
-    console.log(`User connected: ${socket.id}`);
+    //console.log(`User connected: ${socket.id}`);
+    socket.on('quickPlay',()=>{
+            if (waitingPlayer) {
+            const roomId = `${socket.id}-${waitingPlayer.id}`;
+            socket.join(roomId);
+            waitingPlayer.join(roomId);
 
-    if (waitingPlayer) {
-        const roomId = `${socket.id}-${waitingPlayer.id}`;
+            io.to(socket.id).emit("role", "bowling");
+            io.to(waitingPlayer.id).emit("role", "batting");
+
+            const score = {
+                roomId,
+                batter: waitingPlayer.id,
+                bowler: socket.id,
+                currentScore: 0,
+                Target: null,
+                win: null,
+                batterMove: null,
+                bowlerMove: null,
+                out: '',
+                ready: new Set()
+            };
+
+            games.set(roomId, score);
+            playerRoom.set(socket.id, roomId);
+            playerRoom.set(waitingPlayer.id, roomId);
+
+            io.to(roomId).emit("startgame", roomId);
+            waitingPlayer = null;
+        } else {
+            waitingPlayer = socket;
+        }
+    })
+    socket.on("createRoom", () => {
+        const roomId = Math.random().toString(36).substring(2, 8); // random 6-char code
         socket.join(roomId);
-        waitingPlayer.join(roomId);
 
-        io.to(socket.id).emit("role", "bowling");
-        io.to(waitingPlayer.id).emit("role", "batting");
-
-        const score = {
+        games.set(roomId, {
             roomId,
-            batter: waitingPlayer.id,
-            bowler: socket.id,
+            batter: socket.id,
+            bowler: null,
             currentScore: 0,
             Target: null,
             win: null,
@@ -44,17 +71,27 @@ io.on("connection", (socket) => {
             bowlerMove: null,
             out: '',
             ready: new Set()
-        };
-
-        games.set(roomId, score);
+        });
         playerRoom.set(socket.id, roomId);
-        playerRoom.set(waitingPlayer.id, roomId);
 
+        socket.emit("roomCreated", roomId);
+    });
+
+    socket.on("joinRoom", (roomId) => {
+        const score = games.get(roomId);
+        if (!score || score.bowler) {
+            socket.emit("joinError", "Room not available");
+            return;
+        }
+
+        socket.join(roomId);
+        score.bowler = socket.id;
+        playerRoom.set(socket.id, roomId);
+
+        io.to(score.batter).emit("role", "batting");
+        io.to(score.bowler).emit("role", "bowling");
         io.to(roomId).emit("startgame", roomId);
-        waitingPlayer = null;
-    } else {
-        waitingPlayer = socket;
-    }
+    });
 
     socket.on('PlayerMove', (number) => {
         const roomId = playerRoom.get(socket.id);
