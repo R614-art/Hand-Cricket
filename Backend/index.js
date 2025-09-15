@@ -5,9 +5,7 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const cors= require('cors');
 app.use(cors({
-  origin: ["https://hand-cricket-rho.vercel.app"], 
-  methods: ["GET", "POST"],
-  credentials: true
+  origin: "https://hand-cricket-rho.vercel.app/multioptions"
 }));
 
 const io = new Server(server, {
