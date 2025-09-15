@@ -22,6 +22,10 @@ let waitingPlayer = null;
 const games = new Map();
 const playerRoom = new Map();
 
+app.get('/ping',(req,res)=>{
+    res.status(200);
+})
+
 io.on("connection", (socket) => {
     //console.log(`User connected: ${socket.id}`);
     socket.on('quickPlay',()=>{

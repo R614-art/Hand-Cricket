@@ -175,7 +175,7 @@ const Multi = ({mode}) => {
               <p>Waiting for opponent...</p>
             </div>
           ) : (
-            <Spinner />
+            <Spinner text='searching for opponent....'/>
           )}
         </div>
       )
