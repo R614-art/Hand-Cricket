@@ -5,8 +5,13 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const cors= require('cors');
 app.use(cors({
-  origin: "https://hand-cricket-rho.vercel.app"
+  origin: "https://hand-cricket-rho.vercel.app",
+  methods: ["GET", "POST"],
 }));
+
+app.get('/ping',(req,res)=>{
+    res.status(200).send('connected');
+})
 
 const io = new Server(server, {
   cors: {
@@ -19,10 +24,6 @@ const io = new Server(server, {
 let waitingPlayer = null;
 const games = new Map();
 const playerRoom = new Map();
-
-app.get('/ping',(req,res)=>{
-    res.status(200);
-})
 
 io.on("connection", (socket) => {
     //console.log(`User connected: ${socket.id}`);
