@@ -5,14 +5,14 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const cors= require('cors');
 app.use(cors({
-  origin: "https://hand-cricket-rho.vercel.app",   // your frontend
+  origin: ["https://hand-cricket-rho.vercel.app"], 
   methods: ["GET", "POST"],
   credentials: true
 }));
 
 const io = new Server(server, {
   cors: {
-    origin: ["https://hand-cricket-rho.vercel.app"], // React frontend
+    origin: ["https://hand-cricket-rho.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true
   }
