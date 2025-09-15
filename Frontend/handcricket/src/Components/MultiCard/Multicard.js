@@ -20,15 +20,15 @@ const Multicard = () => {
             <div className="board" style={{'background-image':"url('/board2.png')"}}>
               <h2 className="board-title">Modes</h2>
       
-              <Link to="quickplay" className="chalk-btn">
+              <Link to="/quickplay" className="chalk-btn">
                 Quick Play
               </Link>
       
-              <Link to="createroom" className="chalk-btn">
+              <Link to="/createroom" className="chalk-btn">
                 Create Room
               </Link>
       
-              <Link to="joinroom" className="chalk-btn">
+              <Link to="/joinroom" className="chalk-btn">
                 Join Room
               </Link>
             </div>
