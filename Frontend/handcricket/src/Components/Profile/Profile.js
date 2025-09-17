@@ -27,11 +27,8 @@ const Profile = () => {
     {profile && <div className="board-wrapper">
         <div className="board" style={{'background-image':"url('/board2.png')"}}>
             <h2 className="board-title">Profile</h2>
-             <p className="chalk">
-            User Id : {profile.userId}
-            </p>
             <p className="chalk">
-            User Name : {profile.userName}
+            Player Name : {profile.userName}
             </p>
             <p className="chalk">
             Wins : {profile.wins}
@@ -40,7 +37,7 @@ const Profile = () => {
             Matches Played : {profile.matchesPlayed}
             </p>
             <p className="chalk">
-            Highest Score : {profile.highestScore}
+            Highest Score : {profile.highestScore===-1?"play a multiplayer match"||profile.highestScore}
             </p>
         </div>
     </div>}
