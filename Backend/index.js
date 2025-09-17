@@ -40,7 +40,7 @@ app.get('/ping',(req,res)=>{
     res.status(200).send('connected');
 })
 
-app.get('/profile',requireAuth(),async (req,res)=>{
+app.get('/getprofile',requireAuth(),async (req,res)=>{
     const {userId}=req.auth();
     //console.log(userId);
     const profile= await getProfile(db,userId);

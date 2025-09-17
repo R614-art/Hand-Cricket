@@ -10,7 +10,7 @@ const Profile = () => {
         const getProfile = async () =>{
             const token= await getToken();
             console.log(token);
-            const res= await fetch('https://hand-cricket-xm73.onrender.com/profile',{
+            const res= await fetch('https://hand-cricket-xm73.onrender.com/getprofile',{
                 headers:{
                    Authorization : `Bearer ${token}`
                 }
