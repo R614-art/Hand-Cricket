@@ -9,7 +9,7 @@ const Profile = () => {
             return;
         const getProfile = async () =>{
             const token= await getToken();
-            console.log(token);
+            //console.log(token);
             const res= await fetch('https://hand-cricket-xm73.onrender.com/getprofile',{
                 headers:{
                    Authorization : `Bearer ${token}`
@@ -17,7 +17,7 @@ const Profile = () => {
             })
             if(!res.ok) throw new Error('Failed to load profile');
             const data= await res.json();
-            console.log(data);
+            //console.log(data);
             setProfile(data);
         }
         getProfile();
