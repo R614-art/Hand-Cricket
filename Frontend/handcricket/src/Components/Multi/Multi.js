@@ -4,6 +4,7 @@ import Spinner from '../Spinner/Spinner'
 import Scorecard from '../Scorecard/Scorecard';
 import ReactDOM from 'react-dom';
 import { useLocation } from 'react-router-dom';
+import { useUser } from "@clerk/clerk-react";
 const Multi = ({mode}) => {
   const choices=[0,1,2,3,4,5,6]
   const socket= useRef(null);
@@ -22,13 +23,14 @@ const Multi = ({mode}) => {
   const [out,setOut]=useState('');
   const [roomCode, setRoomCode] = useState(null);
   const [waitingForPlayer, setWaitingForPlayer] = useState(false);
+  const user= useUser();
   const timer= useRef(null);
   useEffect(()=>{
     const s = io('https://hand-cricket-xm73.onrender.com');
     socket.current = s;
 
     s.on('connect',()=>{
-      console.log('connected')
+      socket.current.emit("registerUser",{userId:user.user.id, userName : user.user.fullName})
       if (mode === 'quickplay') {
       socket.current.emit('quickPlay');
       setSearching(true);

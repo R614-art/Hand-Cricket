@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Schoolbell&display=swap');
+
+.board-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.board {
+  width: 90%;
+  max-width: 700px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.board-title {
+  color: #fff;
+  font-family: 'Schoolbell', cursive;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.chalk{
+  display: block;
+  text-align: center;
+  margin: 0.8rem 0;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-family: 'Schoolbell', cursive;
+  color: #fff;
+  background: transparent;
+  border: none;
+  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.3);
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}

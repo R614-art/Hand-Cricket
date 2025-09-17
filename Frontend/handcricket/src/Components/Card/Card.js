@@ -16,6 +16,10 @@ const Card = () => {
           Multiplayer
         </Link>
 
+        <Link to="/profile" className="chalk-btn">
+          Profile
+        </Link>
+
         <Link to="/instructions" className="chalk-btn">
           Instructions
         </Link>

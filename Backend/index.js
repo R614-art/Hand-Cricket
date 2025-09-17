@@ -3,7 +3,34 @@ const http = require("http");
 const app = express();
 const server = http.createServer(app);
 const { Server } = require('socket.io');
+const dotenv = require('dotenv');
 const cors= require('cors');
+const {MongoClient} = require('mongodb');
+const {ensureUserProfile}= require('./helpers/ensureProfile')
+const {updateStats}=require('./helpers/updateStats');
+const {getProfile}=require('./helpers/getProfile');
+const {requireAuth}= require('@clerk/express');
+dotenv.config()
+
+const uri = process.env.MONGO_URI;
+const client = new MongoClient(uri);
+let db;
+
+async function startServer() {
+  try {
+    await client.connect();
+    db = client.db("Cluster0");
+    server.listen(15000, () => {
+      console.log("Server listening on port 15000");
+    });
+  } catch (err) {
+    console.error("Mongo connection error:", err);
+    process.exit(1);
+  }
+}
+
+startServer();
+app.use(express.json())
 app.use(cors({
   origin: "https://hand-cricket-rho.vercel.app",
   methods: ["GET", "POST"],
@@ -11,6 +38,14 @@ app.use(cors({
 
 app.get('/ping',(req,res)=>{
     res.status(200).send('connected');
+})
+
+app.get('/profile',requireAuth(),async (req,res)=>{
+    const {userId}=req.auth();
+    //console.log(userId);
+    const profile= await getProfile(db,userId);
+    //console.log(profile);
+    res.json(profile);
 })
 
 const io = new Server(server, {
@@ -24,9 +59,13 @@ const io = new Server(server, {
 let waitingPlayer = null;
 const games = new Map();
 const playerRoom = new Map();
+const socketUser = new Map();
 
 io.on("connection", (socket) => {
-    //console.log(`User connected: ${socket.id}`);
+    socket.on("registerUser", ({ userId,userName }) => {
+        socketUser.set(socket.id, userId);
+        ensureUserProfile(db,userId,userName);
+    });
     socket.on('quickPlay',()=>{
             if (waitingPlayer) {
             const roomId = `${socket.id}-${waitingPlayer.id}`;
@@ -60,7 +99,7 @@ io.on("connection", (socket) => {
         }
     })
     socket.on("createRoom", () => {
-        const roomId = Math.random().toString(36).substring(2, 8); // random 6-char code
+        const roomId = Math.random().toString(36).substring(2, 8);
         socket.join(roomId);
 
         games.set(roomId, {
@@ -73,7 +112,8 @@ io.on("connection", (socket) => {
             batterMove: null,
             bowlerMove: null,
             out: '',
-            ready: new Set()
+            ready: new Set(),
+            stats:false
         });
         playerRoom.set(socket.id, roomId);
 
@@ -96,7 +136,7 @@ io.on("connection", (socket) => {
         io.to(roomId).emit("startgame", roomId);
     });
 
-    socket.on('PlayerMove', (number) => {
+    socket.on('PlayerMove', async (number) => {
         const roomId = playerRoom.get(socket.id);
         const score = games.get(roomId);
         if (!score) return;
@@ -130,7 +170,18 @@ io.on("connection", (socket) => {
                 }
                 io.to(roomId).emit("ballResult", JSON.stringify(score));
             }
+            if(score.win && !score.stats){
+                score.stats = true;
 
+                const winnerSocket = score.win;
+                const loserSocket = score.batter === winnerSocket ? score.bowler : score.batter;
+
+                const winnerId = socketUser.get(winnerSocket);
+                const loserId = socketUser.get(loserSocket);
+
+                await updateStats(db, winnerId, true, score, winnerSocket);
+                await updateStats(db, loserId, false, score, loserSocket);
+            }
             score.batterMove = null;
             score.bowlerMove = null;
         }
@@ -166,7 +217,8 @@ io.on("connection", (socket) => {
                 batterMove: null,
                 bowlerMove: null,
                 out: '',
-                ready: new Set()
+                ready: new Set(),
+                stats:false
             };
 
             games.set(roomId, newScore);
@@ -213,7 +265,8 @@ io.on("connection", (socket) => {
                 batterMove: null,
                 bowlerMove: null,
                 out: null,
-                ready: new Set()
+                ready: new Set(),
+                stats:false
             };
 
             games.set(roomId, score);
@@ -257,8 +310,4 @@ io.on("connection", (socket) => {
 
         console.log(`User disconnected: ${socket.id}`);
     });
-});
-
-server.listen(15000, () => {
-    console.log("Server listening on port 15000");
 });
