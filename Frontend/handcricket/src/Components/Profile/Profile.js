@@ -37,7 +37,7 @@ const Profile = () => {
             Matches Played : {profile.matchesPlayed}
             </p>
             <p className="chalk">
-            Highest Score : {profile.highestScore===-1?"play a multiplayer match"||profile.highestScore}
+            Highest Score : {profile.highestScore===-1?"play a multiplayer match":profile.highestScore}
             </p>
         </div>
     </div>}
