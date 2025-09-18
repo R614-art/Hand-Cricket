@@ -21,7 +21,7 @@
 }
 
 /* Heading text */
-.board-title {
+.board-title, .leaderboard-board h2 {
   color: #fff;
   font-family: 'Schoolbell', cursive;
   font-size: clamp(1.8rem, 4vw, 2.5rem);
@@ -34,9 +34,10 @@
 .leaderboard-content {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start; /* ensure columns align at top */
   width: 100%;
   flex: 1;
-  overflow: hidden;
+  gap: 1rem; /* space between columns and separator */
 }
 
 /* Column for wins or scores */
@@ -54,7 +55,7 @@
 .separator {
   width: 2px;
   background-color: rgba(255, 255, 255, 0.5);
-  margin: 0 1rem;
+  align-self: stretch; /* make separator full height of content */
 }
 
 /* Column headings */
@@ -82,4 +83,3 @@
   color: #fff;
   text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.3);
 }
-

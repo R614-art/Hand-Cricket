@@ -26,8 +26,7 @@ const LeaderBoard = () => {
     <div>
     { !(wins.length==0 && scores.length==0)?
     <div className='board-wrapper'>
-        <div className='board' style={{'background':"url('/board2.png')"}}>
-            <div className="leaderboard-board">
+            <div className="leaderboard-board" style={{'background':"url('/board2.png')"}}>
                 <h2 className='chalk'>Leaderboard</h2>
 
                 <div className="leaderboard-content">
@@ -51,7 +50,6 @@ const LeaderBoard = () => {
                     </ul>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
     :
