@@ -10,6 +10,8 @@ const {ensureUserProfile}= require('./helpers/ensureProfile')
 const {updateStats}=require('./helpers/updateStats');
 const {getProfile}=require('./helpers/getProfile');
 const {requireAuth,clerkClient}= require('@clerk/express');
+const { getTopWins } = require("./helpers/getTopWins");
+const { getTopScores } = require("./helpers/getTopScores");
 dotenv.config()
 
 const uri = process.env.MONGO_URI;
@@ -49,6 +51,12 @@ app.get('/getprofile',requireAuth(),async (req,res)=>{
     const profile= await getProfile(db,userId);
     //console.log(profile);
     res.json(profile);
+})
+
+app.get('/getleaderboard',requireAuth(),async (req,res)=>{
+    const wins=await getTopWins(db);
+    const scores= await getTopScores(db);
+    res.json({wins:wins,scores:scores})
 })
 
 const io = new Server(server, {

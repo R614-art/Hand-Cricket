@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Schoolbell&display=swap');
+
+/* Wraps the whole board */
+.board-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* The chalkboard itself */
+.leaderboard-board {
+  width: 90%;
+  max-width: 700px;
+  height: 500px; /* adjust if needed */
+  background: center/100% 100% no-repeat;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Heading text */
+.board-title {
+  color: #fff;
+  font-family: 'Schoolbell', cursive;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+/* Inner content with vertical line */
+.leaderboard-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Column for wins or scores */
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  max-height: 380px;   /* space below title */
+  scrollbar-width: thin;
+}
+
+/* Vertical separator */
+.separator {
+  width: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0 1rem;
+}
+
+/* Column headings */
+.column h3 {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin-bottom: 0.5rem;
+  font-family: 'Schoolbell', cursive;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.3);
+}
+
+/* List styles */
+.column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.column li {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  padding: 4px 0;
+  text-align: center;
+  font-family: 'Schoolbell', cursive;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.3);
+}
+

@@ -8,6 +8,7 @@ import Multicard from './Components/MultiCard/Multicard';
 import JoinRoomCard from './Components/JoinRoomCard/JoinRoomCard';
 import Profile from './Components/Profile/Profile';
 import { SignedIn,SignedOut,RedirectToSignIn } from '@clerk/clerk-react';
+import LeaderBoard from './Components/LeaderBoard/LeaderBoard';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path='/joinroomplay' element={<Multi mode='joinroom' />} />
             <Route path='/multioptions' element={<Multicard/>} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/leaderboard' element={<LeaderBoard />} />
           </Routes>
         </SignedIn>
         <SignedOut>

@@ -20,6 +20,10 @@ const Card = () => {
           Profile
         </Link>
 
+        <Link ti="/leaderboard" className='chalk-btn'>
+          LeaderBoard
+        </Link>
+
         <Link to="/instructions" className="chalk-btn">
           Instructions
         </Link>
