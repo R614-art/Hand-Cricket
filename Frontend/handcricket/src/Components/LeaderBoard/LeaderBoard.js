@@ -27,7 +27,12 @@ const LeaderBoard = () => {
     <div>
     { !(wins.length==0 && scores.length==0)?
     <div className='board-wrapper'>
-  <div className="leaderboard-board" style={{ background: "url('/board2.png')" }}>
+  <div className="leaderboard-board" style={{ 
+    'background': "url('/board2.png')",
+    'backgroundRepeat': "no-repeat",
+    'backgroundSize': "100% 100%",
+    'backgroundPosition': "center"
+  }}>
     <h2 className='chalk'>Leaderboard</h2>
 
     <div className="leaderboard-content">
