@@ -41,7 +41,7 @@ const LeaderBoard = () => {
         <h3 className='chalk'>Wins</h3>
         <ol>
           {wins.map((w, index) => (
-            (w.userName && w.wins!=0) && <li key={index} className='chalk'>{w.userName} - {w.wins}</li>
+            (w.userName && w.wins!==0) && <li key={index} className='chalk'>{w.userName} - {w.wins}</li>
           ))}
         </ol>
       </div>
@@ -51,7 +51,7 @@ const LeaderBoard = () => {
         <h3 className='chalk'>Highest Score</h3>
         <ol>
           {scores.map((s, index) => (
-            (s.userName &&  s.highScore!==-1) && <li key={index} className='chalk'>{s.userName} - {s.highestScore}</li>
+            (s.userName &&  s.highestScore!==-1) && <li key={index} className='chalk'>{s.userName} - {s.highestScore}</li>
           ))}
         </ol>
       </div>

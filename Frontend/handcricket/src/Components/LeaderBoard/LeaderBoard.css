@@ -67,7 +67,7 @@
 
 /* List styles */
 .column ol {
-  list-style: decimal;
+  list-style: decimal inside;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -78,7 +78,7 @@
 }
 
 .column ol::-webkit-scrollbar {
-  display: none;   /* hides scrollbar */
+  display: none;  
 }
 
 .column li {
