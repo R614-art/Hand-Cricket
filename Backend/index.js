@@ -44,7 +44,7 @@ app.get('/getprofile',requireAuth(),async (req,res)=>{
     const {userId}=req.auth();
     //console.log(userId);
     const user=await clerkClient.users.getUser(userId);
-    const userName= user.username;
+    const userName= user.fullName;
     ensureUserProfile(db,userId,userName)
     const profile= await getProfile(db,userId);
     //console.log(profile);
