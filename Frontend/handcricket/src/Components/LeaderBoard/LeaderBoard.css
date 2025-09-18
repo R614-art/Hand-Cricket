@@ -99,7 +99,7 @@
   .leaderboard-content {
     flex-direction: column;   /* stack Wins & Scores vertically */
     gap: 1rem;
-    overflow-y: auto;         /* allow scroll inside whole content */
+    overflow: hidden;         /* allow scroll inside whole content */
   }
 
   .column {
