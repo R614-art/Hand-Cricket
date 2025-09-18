@@ -39,21 +39,21 @@ const LeaderBoard = () => {
       {/* Wins Column */}
       <div className="column">
         <h3 className='chalk'>Wins</h3>
-        <ul>
+        <ol>
           {wins.map((w, index) => (
             <li key={index} className='chalk'>{w.userName} - {w.wins}</li>
           ))}
-        </ul>
+        </ol>
       </div>
 
       {/* Highest Score Column */}
       <div className="column">
         <h3 className='chalk'>Highest Score</h3>
-        <ul>
+        <ol>
           {scores.map((s, index) => (
             <li key={index} className='chalk'>{s.userName} - {s.score}</li>
           ))}
-        </ul>
+        </ol>
       </div>
     </div>
   </div>
