@@ -68,7 +68,7 @@
 /* List styles */
 .column ol {
   list-style: decimal inside;
-  padding: 0;
+  padding: 0.5rem;
   margin: 0;
   width: 100%;
   flex: 1;
@@ -84,8 +84,53 @@
 .column li {
   font-size: clamp(1.2rem, 2.5vw, 1.6rem);
   padding: 4px 0;
-  text-align: center;
+  text-align: left;
   font-family: 'Schoolbell', cursive;
   color: #fff;
   text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .leaderboard-board {
+    padding: 1.2rem;   /* reduce padding */
+    height: 450px;     /* shrink height a bit */
+  }
+
+  .leaderboard-board h2 {
+    font-size: 1.6rem;
+  }
+
+  .column h3 {
+    font-size: 1.2rem;
+  }
+
+  .column li {
+    font-size: 1rem;
+  }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .leaderboard-board {
+    padding: 0.8rem;   /* even smaller padding */
+    height: 400px;     /* shrink more */
+  }
+
+  .leaderboard-content {
+    flex-direction: column;   /* stack Wins and Scores vertically */
+    align-items: stretch;
+  }
+
+  .column {
+    align-items: flex-start;  /* align left for readability */
+  }
+
+  .column h3 {
+    text-align: left;
+    margin-bottom: 0.3rem;
+  }
+
+  .column ol {
+    font-size: 0.9rem;
+  }
 }
