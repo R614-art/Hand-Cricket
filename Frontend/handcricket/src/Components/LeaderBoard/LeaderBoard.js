@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 import Spinner from '../Spinner/Spinner'
+import './LeaderBoard.css'
 const LeaderBoard = () => {
     const [wins,setWins]=useState([]);
     const [scores,setScores]=useState([]);
