@@ -26,32 +26,32 @@ const LeaderBoard = () => {
     <div>
     { !(wins.length==0 && scores.length==0)?
     <div className='board-wrapper'>
-            <div className="leaderboard-board" style={{'background':"url('/board2.png')"}}>
-                <h2 className='chalk'>Leaderboard</h2>
+  <div className="leaderboard-board" style={{ background: "url('/board2.png')" }}>
+    <h2 className='chalk'>Leaderboard</h2>
 
-                <div className="leaderboard-content">
-                    <div className="column">
-                    <h3 className='chalk'>Wins</h3>
-                    <ul>
-                        {wins.map((w,index) => (
-                        <li key={index} className='chalk'>{w.userName} - {w.wins}</li>
-                        ))}
-                    </ul>
-                    </div>
+    <div className="leaderboard-content">
+      {/* Wins Column */}
+      <div className="column">
+        <h3 className='chalk'>Wins</h3>
+        <ul>
+          {wins.map((w, index) => (
+            <li key={index} className='chalk'>{w.userName} - {w.wins}</li>
+          ))}
+        </ul>
+      </div>
 
-                    <div className="separator"></div>
-
-                    <div className="column" >
-                    <h3 className='chalk'>Highest Score</h3>
-                    <ul>
-                        {scores.map((s,index) => (
-                        <li key={index} className='chalk'>{s.userName} - {s.score}</li>
-                        ))}
-                    </ul>
-                    </div>
-                </div>
-        </div>
+      {/* Highest Score Column */}
+      <div className="column">
+        <h3 className='chalk'>Highest Score</h3>
+        <ul>
+          {scores.map((s, index) => (
+            <li key={index} className='chalk'>{s.userName} - {s.score}</li>
+          ))}
+        </ul>
+      </div>
     </div>
+  </div>
+</div>
     :
     <Spinner text="fetching leaderboard"/>
     }
