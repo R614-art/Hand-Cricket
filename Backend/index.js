@@ -9,7 +9,7 @@ const {MongoClient} = require('mongodb');
 const {ensureUserProfile}= require('./helpers/ensureProfile')
 const {updateStats}=require('./helpers/updateStats');
 const {getProfile}=require('./helpers/getProfile');
-const {requireAuth}= require('@clerk/express');
+const {requireAuth,clerkClient}= require('@clerk/express');
 dotenv.config()
 
 const uri = process.env.MONGO_URI;
@@ -43,6 +43,9 @@ app.get('/ping',(req,res)=>{
 app.get('/getprofile',requireAuth(),async (req,res)=>{
     const {userId}=req.auth();
     //console.log(userId);
+    const user=await clerkClient.users.getUser(userId);
+    const userName= user.username;
+    ensureUserProfile(db,userId,userName)
     const profile= await getProfile(db,userId);
     //console.log(profile);
     res.json(profile);
