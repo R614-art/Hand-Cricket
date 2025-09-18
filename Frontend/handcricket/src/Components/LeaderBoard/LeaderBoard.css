@@ -92,45 +92,23 @@
 
 @media (max-width: 768px) {
   .leaderboard-board {
-    padding: 1.2rem;   /* reduce padding */
-    height: 450px;     /* shrink height a bit */
-  }
-
-  .leaderboard-board h2 {
-    font-size: 1.6rem;
-  }
-
-  .column h3 {
-    font-size: 1.2rem;
-  }
-
-  .column li {
-    font-size: 1rem;
-  }
-}
-
-/* Phones */
-@media (max-width: 480px) {
-  .leaderboard-board {
-    padding: 0.8rem;   /* even smaller padding */
-    height: 400px;     /* shrink more */
+    height: 400px;       /* shrink height */
+    padding: 1rem;       /* reduce padding */
   }
 
   .leaderboard-content {
-    flex-direction: column;   /* stack Wins and Scores vertically */
-    align-items: stretch;
+    flex-direction: column;   /* stack Wins & Scores vertically */
+    gap: 1rem;
+    overflow-y: auto;         /* allow scroll inside whole content */
   }
 
   .column {
-    align-items: flex-start;  /* align left for readability */
+    width: 100%;
+    align-items: flex-start;  /* align text to left */
   }
 
   .column h3 {
-    text-align: left;
-    margin-bottom: 0.3rem;
-  }
-
-  .column ol {
-    font-size: 0.9rem;
+    text-align: center;
+    width: 100%;
   }
 }
