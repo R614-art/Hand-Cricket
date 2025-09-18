@@ -97,9 +97,9 @@
   }
 
   .leaderboard-content {
-    flex-direction: column;   /* stack Wins & Scores vertically */
-    gap: 1rem;
-    overflow: hidden;         /* allow scroll inside whole content */
+   /* stack Wins & Scores vertically */
+    gap: 0.5rem;
+    overflow-y: auto;         /* allow scroll inside whole content */
   }
 
   .column {
