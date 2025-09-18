@@ -51,3 +51,11 @@
   transform: scale(1.05);
   text-decoration: underline;
 }
+
+@media (max-width:600px)
+{
+  .board{
+    max-width: 400px;
+    width: 80%;
+  }
+}
