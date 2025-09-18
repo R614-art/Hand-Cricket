@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 import './Profile.css'
+import Spinner from '../Spinner/Spinner'
 const Profile = () => {
     const {isLoaded, getToken}=useAuth();
     const [profile,setProfile]=useState(null);
@@ -24,7 +25,7 @@ const Profile = () => {
     },[])
   return (
     <div>
-    {profile && <div className="board-wrapper">
+    {profile!==null ? <div className="board-wrapper">
         <div className="board" style={{'background-image':"url('/board2.png')"}}>
             <h2 className="board-title">Profile</h2>
             <p className="chalk">
@@ -40,7 +41,9 @@ const Profile = () => {
             Highest Score : {profile.highestScore===-1?"play a multiplayer match":profile.highestScore}
             </p>
         </div>
-    </div>}
+    </div>:
+        <Spinner text="fetching data"/>
+    }
     </div>
   )
 }
