@@ -24,7 +24,7 @@ const LeaderBoard = () => {
     },[])
   return (
     <div>
-    { wins.length==0 && scores.length==0?
+    { !(wins.length==0 && scores.length==0)?
     <div className='board-wrapper'>
         <div className='board' style={{'background':"url('/board2.png')"}}>
             <div className="leaderboard-board">
