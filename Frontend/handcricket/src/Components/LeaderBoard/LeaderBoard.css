@@ -67,7 +67,7 @@
 
 /* List styles */
 .column ol {
-  list-style: none;
+  list-style: decimal;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -75,6 +75,10 @@
   overflow-y: auto;   /* <--- scroll inside the board */
   max-height: 100%;   /* use full board space */
   scrollbar-width: thin;
+}
+
+.column ol::-webkit-scrollbar {
+  display: none;   /* hides scrollbar */
 }
 
 .column li {
