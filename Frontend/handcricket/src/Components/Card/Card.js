@@ -5,7 +5,11 @@ import './card.css';
 const Card = () => {
   return (
     <div className="board-wrapper">
-      <div className="board" style={{'background-image':"url('/board2.png')"}}>
+      <div className="board" style={{'background-image':"url('/board2.png')",
+        'background-repeat': 'no-repeat',
+        'background-position': 'center',
+        'background-size': '100% 100%'
+      }}>
         <div className='board-body'>
         <h2 className="board-title">Welcome to Hand Cricket</h2>
 
