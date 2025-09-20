@@ -39,7 +39,7 @@
   gap: 1rem;
   overflow-y: hidden;
   min-height: 75%;
-  padding-bottom: 4rem; /* prevent spill */
+  padding-bottom: 2rem; /* prevent spill */
 }
 
 .column {
