@@ -7,11 +7,11 @@
   padding: 1rem;
   min-height: 100vh;
   box-sizing: border-box;
+  max-width: 900px;
 }
 
 .board {
   width: 100%;
-  max-width: 900px;
   padding: clamp(1rem, 4vw, 3rem);
   box-sizing: border-box;
   background-size: 100% 100%;
@@ -53,5 +53,6 @@
 {
   .board-wrapper{
     padding-left: 0 1.25rem;
+    max-width: 400px;
   }
 }
