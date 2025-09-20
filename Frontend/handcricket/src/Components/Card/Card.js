@@ -8,7 +8,7 @@ const Card = () => {
       <div className="board" style={{'background-image':"url('/board2.png')",
         'background-repeat': 'no-repeat',
         'background-position': 'center',
-        'background-size': 'contain'
+        'background-size': '100% 100%'
       }}>
         <h2 className="board-title">Welcome to Hand Cricket</h2>
 
