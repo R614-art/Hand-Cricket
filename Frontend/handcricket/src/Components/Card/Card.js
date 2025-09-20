@@ -10,7 +10,6 @@ const Card = () => {
         'background-position': 'center',
         'background-size': '100% 100%'
       }}>
-        <div className='board-body'>
         <h2 className="board-title">Welcome to Hand Cricket</h2>
 
         <Link to="playwithcomp" className="chalk-btn">
@@ -32,7 +31,6 @@ const Card = () => {
         <Link to="/instructions" className="chalk-btn">
           Instructions
         </Link>
-      </div>
       </div>
     </div>
   );
