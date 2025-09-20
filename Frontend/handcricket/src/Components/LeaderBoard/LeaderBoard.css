@@ -97,9 +97,8 @@
   }
 
   .leaderboard-content {
-   /* stack Wins & Scores vertically */
     gap: 0.5rem;
-    overflow-y: auto;         /* allow scroll inside whole content */
+    overflow-y: hidden; 
   }
 
   .column {

@@ -45,7 +45,7 @@ const LeaderBoard = () => {
           ))}
         </ol>
       </div>
-
+          <div className='separator'></div>
       {/* Highest Score Column */}
       <div className="column">
         <h3 className='chalk'>Highest Score</h3>
