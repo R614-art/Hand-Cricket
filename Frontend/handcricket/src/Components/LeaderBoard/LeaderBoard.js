@@ -41,7 +41,7 @@ const LeaderBoard = () => {
         <h3 className='chalk'>Wins</h3>
         <ol>
           {wins.map((w, index) => (
-            (w.userName && w.wins!==0) && <li key={index} className='chalk'>{w.userName} - {w.wins}</li>
+            (w.userName && w.wins!==0) && <li key={index} className='chalk'>{index}. {w.userName} - {w.wins}</li>
           ))}
         </ol>
       </div>
