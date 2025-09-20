@@ -4,9 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem 1rem 1rem 1rem;
+  padding: 1rem 1rem 1rem 1.25rem;
   min-height: 100vh;
-  margin-left: 20px;
+  box-sizing: border-box;
 }
 
 .board {
@@ -17,6 +17,7 @@
   align-items: center;
   justify-content: center;
   padding: clamp(1rem, 4vw, 3rem);
+  box-sizing: border-box;
 }
 
 .board-title {
