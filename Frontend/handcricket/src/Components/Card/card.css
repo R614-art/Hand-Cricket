@@ -4,9 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
-  padding-left: 1rem;
+  padding: 1rem 1rem 1rem 1rem;
   min-height: 100vh;
+  margin-left: 20px;
 }
 
 .board {
