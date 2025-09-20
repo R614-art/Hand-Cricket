@@ -54,6 +54,6 @@
 @media (max-width:600px)
 {
   .board-wrapper{
-    padding-left: 1.25rem;
+    padding-left: 0 1.25rem;
   }
 }
