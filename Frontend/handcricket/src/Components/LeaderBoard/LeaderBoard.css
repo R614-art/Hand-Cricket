@@ -38,7 +38,8 @@
   flex: 1;
   gap: 1rem;
   overflow-y: hidden;
-  min-height: 80%; /* prevent spill */
+  min-height: 75%;
+  padding-bottom: 4rem; /* prevent spill */
 }
 
 .column {
