@@ -52,7 +52,7 @@
 @media (max-width:600px)
 {
   .board-wrapper{
-    padding-left: 0 1.25rem;
-    max-width: 400px;
+    padding-left: 0 1rem;
+    max-width: 500px;
   }
 }
