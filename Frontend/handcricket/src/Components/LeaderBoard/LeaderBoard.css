@@ -76,19 +76,11 @@
   flex: 1;
   overflow-y: auto;   /* <--- scroll inside the board */
   max-height: 100%;   /* use full board space */
-  scrollbar-width: thin;
+  scrollbar-width: none;
 }
 
 .column ol::-webkit-scrollbar {
   display: none;  
-}
-
-.column ::-webkit-scrollbar {
-  display: none;
-}
-
-.leaderboard-content ::-webkit-scrollbar{
-  display: none;
 }
 
 .column li {
