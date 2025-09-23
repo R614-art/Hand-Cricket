@@ -60,7 +60,9 @@ app.get('/getleaderboard',requireAuth(),async (req,res)=>{
 })
 
 const io = new Server(server, {
-  cors: {
+    pingTimeout: 30000,
+    pingInterval: 5000,
+    cors: {
     origin: ["https://hand-cricket-rho.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true
