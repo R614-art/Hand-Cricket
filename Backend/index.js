@@ -42,7 +42,7 @@ app.get('/ping',(req,res)=>{
     res.status(200).send('connected');
 })
 
-app.get('/getprofile',requireAuth(),async (req,res)=>{
+app.get('/getprofile',async (req,res)=>{
     console.log('requested')
     const {userId}=req.auth();
     //console.log(userId);
