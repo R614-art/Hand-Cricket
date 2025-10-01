@@ -43,6 +43,7 @@ app.get('/ping',(req,res)=>{
 })
 
 app.get('/getprofile',requireAuth(),async (req,res)=>{
+    console.log('requested')
     const {userId}=req.auth();
     //console.log(userId);
     const user=await clerkClient.users.getUser(userId);
