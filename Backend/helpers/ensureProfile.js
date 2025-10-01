@@ -9,7 +9,8 @@ async function ensureUserProfile(db,userId,userName) {
       wins: 0,
       highestScore: -1,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      coins: 0
     });
   }
 }

@@ -5,7 +5,7 @@ async function updateStats(db,id,win,score,socketId)
                     await db.collection("users").updateOne(
                         {userId : id},
                         {
-                            $inc: { matchesPlayed: 1, wins: 1 },
+                            $inc: { matchesPlayed: 1, wins: 1, coins: 100 },
                             $max: { highestScore: socketId===score.batter?score.currentScore:score.Target-1 },
                             $set: { updatedAt: new Date() }
                         }
@@ -17,7 +17,7 @@ async function updateStats(db,id,win,score,socketId)
                     await db.collection("users").updateOne(
                         {userId : id},
                         {
-                            $inc: { matchesPlayed: 1},
+                            $inc: { matchesPlayed: 1,coins:-50},
                             $max: { highestScore: socketId==score.batter?score.currentScore:score.Target-1 },
                             $set: { updatedAt: new Date() }
                         }
